@@ -32,5 +32,6 @@ public class InsertRegister {
 		
 		System.out.println("Cadastro realizado com sucesso!");
 		input.close();
+		connection.close();
 	}
 }
