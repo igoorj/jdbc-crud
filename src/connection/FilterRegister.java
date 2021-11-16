@@ -2,7 +2,7 @@ package connection;
 
 import java.util.Scanner;
 import java.sql.Connection;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.List;
@@ -20,10 +20,11 @@ public class FilterRegister {
 		
 		Connection connection = ConnectionDB.getConnection();
 		
-		String sql = "SELECT * FROM pessoas WHERE nome LIKE '%"+nome+"%'";
+		String sql = "SELECT * FROM pessoas WHERE nome LIKE ?";
 		
-		Statement stmt = connection.createStatement();		
-		ResultSet resultado = stmt.executeQuery(sql);
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, "%"+nome+"%");
+		ResultSet resultado = stmt.executeQuery();
 		
 		List<People> people = new ArrayList<>();
 		
